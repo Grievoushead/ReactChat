@@ -19853,10 +19853,6 @@
 
 	var _action_creators = __webpack_require__(173);
 
-	var ActionCreators = _interopRequireWildcard(_action_creators);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19885,7 +19881,8 @@
 	      var dispatch = this.props.dispatch;
 	      // bind each action with dispatch
 
-	      var boundActionCreators = (0, _redux.bindActionCreators)(ActionCreators, dispatch);
+	      console.log(_action_creators.enterChatRoom);
+	      var boundActionCreators = (0, _redux.bindActionCreators)({ enterChatRoom: _action_creators.enterChatRoom }, dispatch);
 	      console.log(boundActionCreators);
 
 	      var chatRooms = this.props.chatRooms;
@@ -20759,6 +20756,7 @@
 	  value: true
 	});
 	exports.enterChatRoom = enterChatRoom;
+	exports.submitMessage = submitMessage;
 
 	var _action_types = __webpack_require__(174);
 
@@ -20773,6 +20771,14 @@
 	  };
 	}
 
+	function submitMessage(chatRoomId, message) {
+	  return {
+	    type: ACTION_TYPES.CHAT_ROOM_MESSAGE_SUBMIT,
+	    chatRoomId: chatRoomId,
+	    message: message
+	  };
+	}
+
 /***/ },
 /* 174 */
 /***/ function(module, exports) {
@@ -20783,6 +20789,7 @@
 	  value: true
 	});
 	var CHAT_ROOM_ENTER = exports.CHAT_ROOM_ENTER = 'CHAT_ROOM_ENTER';
+	var CHAT_ROOM_MESSAGE_SUBMIT = exports.CHAT_ROOM_MESSAGE_SUBMIT = 'CHAT_ROOM_MESSAGE_SUBMIT';
 
 /***/ },
 /* 175 */
@@ -20793,6 +20800,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20809,6 +20818,10 @@
 	var _message_input2 = _interopRequireDefault(_message_input);
 
 	var _reactRedux = __webpack_require__(179);
+
+	var _redux = __webpack_require__(163);
+
+	var _action_creators = __webpack_require__(173);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20837,12 +20850,23 @@
 
 	      var messages = curChatRoom !== null ? curChatRoom.messages : [];
 
+	      var curChatRoomId = curChatRoom !== null ? curChatRoom.id : null;
+
 	      console.log(messages);
+
+	      // Injected by react-redux:
+	      var dispatch = this.props.dispatch;
+	      // bind each action with dispatch
+
+	      console.log(_action_creators.submitMessage);
+	      var boundActionCreators = (0, _redux.bindActionCreators)({ submitMessage: _action_creators.submitMessage }, dispatch);
+	      console.log(boundActionCreators);
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-9 col-lg-10 chat-room' },
 	        _react2.default.createElement(_chat_history2.default, { messages: messages }),
-	        _react2.default.createElement(_message_input2.default, null)
+	        _react2.default.createElement(_message_input2.default, _extends({ currentChatRoomId: curChatRoomId }, boundActionCreators))
 	      );
 	    }
 	  }]);
@@ -21039,7 +21063,7 @@
 /* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21062,32 +21086,59 @@
 	var MessageInput = function (_React$Component) {
 	  _inherits(MessageInput, _React$Component);
 
-	  function MessageInput() {
+	  function MessageInput(props) {
 	    _classCallCheck(this, MessageInput);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MessageInput).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MessageInput).call(this, props));
+
+	    _this.state = {
+	      message: ''
+	    };
+	    // need for passing this inside methods
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(MessageInput, [{
-	    key: "render",
+	    key: 'handleSubmit',
+	    value: function handleSubmit(event) {
+	      event.preventDefault();
+	      // this will trigger event
+	      // and redux will trigger parent component to redraw b/c of state change
+	      console.log('handleSubmit call');
+	      var msg = this.state.message;
+
+	      this.setState({ message: '' });
+
+	      this.props.submitMessage(this.props.currentChatRoomId, msg);
+	      console.log('submitMessage call done');
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.setState({ message: event.target.value });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "form",
-	        { className: "message-input" },
+	        'form',
+	        { className: 'message-input', onSubmit: this.handleSubmit },
 	        _react2.default.createElement(
-	          "fieldset",
-	          { className: "form-group" },
+	          'fieldset',
+	          { className: 'form-group' },
 	          _react2.default.createElement(
-	            "label",
-	            { htmlFor: "exampleTextarea" },
-	            "Message"
+	            'label',
+	            { htmlFor: 'exampleTextarea' },
+	            'Message'
 	          ),
-	          _react2.default.createElement("textarea", { className: "form-control", id: "exampleTextarea", rows: "3" })
+	          _react2.default.createElement('textarea', { onChange: this.handleChange, className: 'form-control', id: 'exampleTextarea', rows: '3', value: this.state.message })
 	        ),
 	        _react2.default.createElement(
-	          "button",
-	          { type: "submit", className: "btn btn-primary pull-right" },
-	          "Submit"
+	          'button',
+	          { type: 'submit', className: 'btn btn-primary pull-right' },
+	          'Submit'
 	        )
 	      );
 	    }
@@ -21095,6 +21146,15 @@
 
 	  return MessageInput;
 	}(_react2.default.Component);
+
+	// provides type security level
+	// react will throw error if types are not matching
+
+
+	MessageInput.propTypes = {
+	  submitMessage: _react2.default.PropTypes.func.isRequired,
+	  currentChatRoomId: _react2.default.PropTypes.number
+	};
 
 	exports.default = MessageInput;
 
@@ -21914,6 +21974,8 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	// reducer is a pure function
 	// do not modify state
 	// return new state with refs to objects which didn't affected
@@ -21923,7 +21985,7 @@
 
 	  switch (action.type) {
 	    case ACTION_TYPES.CHAT_ROOM_ENTER:
-	      var chatRoomId = action.id; // 2
+	      var chatRoomId = action.id;
 
 	      var chatRooms = [];
 	      var currentChatRoom = null;
@@ -21938,6 +22000,29 @@
 	          // make prev active chatroom inactive
 	          cr = {};
 	          Object.assign(cr, chatRoom, { active: false });
+	        } else {
+	          // chatRoom not affected, keep same ref
+	          cr = chatRoom;
+	        }
+
+	        chatRooms[i] = cr;
+	      });
+
+	      return { user: state.user, chatRooms: chatRooms, currentChatRoom: currentChatRoom };
+
+	    case ACTION_TYPES.CHAT_ROOM_MESSAGE_SUBMIT:
+	      var chRoomId = action.chatRoomId;
+	      var message = action.message;
+
+	      var chatRooms = [];
+	      var currentChatRoom = null;
+	      state.chatRooms.forEach(function (chatRoom, i) {
+	        var cr;
+	        if (chatRoom.id === chRoomId) {
+	          // make new chatroom active
+	          cr = {};
+	          Object.assign(cr, chatRoom, { messages: [].concat(_toConsumableArray(chatRoom.messages), [{ inсoming: false, text: message }]) });
+	          currentChatRoom = cr;
 	        } else {
 	          // chatRoom not affected, keep same ref
 	          cr = chatRoom;

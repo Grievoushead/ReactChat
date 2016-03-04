@@ -6,3 +6,11 @@ export function enterChatRoom(id) {
     id
   }
 }
+
+export function submitMessage(chatRoomId, message) {
+  return {
+    type: ACTION_TYPES.CHAT_ROOM_MESSAGE_SUBMIT,
+    chatRoomId,
+    message
+  }
+}

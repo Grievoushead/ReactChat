@@ -2,6 +2,8 @@ import React from 'react';
 import ChatHistory from './chat_history.jsx';
 import MessageInput from './message_input.jsx';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { submitMessage } from '../store/actions/action_creators';
 
 class ChatRoom extends React.Component {
  render() {
@@ -12,11 +14,21 @@ class ChatRoom extends React.Component {
 
    let messages = curChatRoom !== null ? curChatRoom.messages : [];
 
+   let curChatRoomId = curChatRoom !== null ? curChatRoom.id : null;
+
    console.log(messages);
+
+   // Injected by react-redux:
+   let { dispatch } = this.props
+   // bind each action with dispatch
+   console.log(submitMessage);
+   let boundActionCreators = bindActionCreators({submitMessage}, dispatch);
+   console.log(boundActionCreators);
+
    return (
      <div className="col-md-9 col-lg-10 chat-room">
          <ChatHistory messages={messages}/>
-         <MessageInput/>
+         <MessageInput currentChatRoomId={curChatRoomId} {...boundActionCreators}/>
      </div>
    )
  }

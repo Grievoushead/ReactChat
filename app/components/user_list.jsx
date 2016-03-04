@@ -2,7 +2,7 @@ import React from 'react';
 import UserListLine from './user_list_line.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as ActionCreators from '../store/actions/action_creators';
+import { enterChatRoom } from '../store/actions/action_creators';
 
 class UserList extends React.Component {
 
@@ -18,7 +18,8 @@ class UserList extends React.Component {
     // Injected by react-redux:
    let { dispatch } = this.props
    // bind each action with dispatch
-   let boundActionCreators = bindActionCreators(ActionCreators, dispatch);
+   console.log(enterChatRoom);
+   let boundActionCreators = bindActionCreators({enterChatRoom}, dispatch);
    console.log(boundActionCreators);
 
    let chatRooms = this.props.chatRooms;

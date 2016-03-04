@@ -9,12 +9,14 @@ const ChatRooms = (state = [], action) => {
       let chatRoomId = action.id; // 2
 
       var chatRooms = [];
+      var currentChatRoom = null;
       state.chatRooms.forEach((chatRoom, i) => {
         var cr;
         if (chatRoom.id === chatRoomId) {
           // make new chatroom active
           cr = {};
           Object.assign(cr, chatRoom, {active: true});
+          currentChatRoom = cr;
         } else if (chatRoom.active){
           // make prev active chatroom inactive
           cr = {};
@@ -27,8 +29,7 @@ const ChatRooms = (state = [], action) => {
         chatRooms[i] = cr;
       });
 
-      return {user: state.user, chatRooms};
-      break;
+      return {user: state.user, chatRooms, currentChatRoom};
     default:
       return state;
   }

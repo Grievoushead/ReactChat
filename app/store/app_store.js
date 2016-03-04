@@ -10,23 +10,24 @@ let initialState = {
     user: {
       name: 'Jane Smith'
     },
-    messages: ['Hello'],
+    messages: ['Hello Serg, How are you?', 'How was your day?'],
     active: false
   }, {
     id: 1,
     user: {
       name: 'Tom Hanks'
     },
-    messages: ['Hello'],
+    messages: ['Hi Tom, thanks for the book, it was very interesting.'],
     active: false
   }, {
     id: 2,
     user: {
       name: 'Will Smith'
     },
-    messages: ['Hello'],
+    messages: ['Hi Will, you last movie, was incredible.'],
     active: false
-  }]
+  }],
+  currentChatRoom: null
 };
 
 const AppStore = createStore(ChatRooms, initialState);

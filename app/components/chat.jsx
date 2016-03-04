@@ -17,7 +17,7 @@ class Chat extends React.Component {
                <UserPanel/>
                <UserList chatRooms={state.chatRooms}/>
              </div>
-             <ChatRoom/>
+             <ChatRoom current={state.currentChatRoom}/>
          </div>
      </div>
    )

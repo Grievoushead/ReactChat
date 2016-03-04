@@ -1,7 +1,7 @@
 import React from 'react';
 import UserListLine from './user_list_line.jsx';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import * as ActionCreators from '../store/actions/action_creators';
 
 class UserList extends React.Component {

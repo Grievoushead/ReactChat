@@ -13,7 +13,7 @@ class ChatRoomsList extends React.Component {
  render() {
 
     // Injected by react-redux:
-   let { dispatch } = this.props
+   let { dispatch } = this.props;
    // bind each action with dispatch
    let boundActionCreators = bindActionCreators({enterChatRoom}, dispatch);
 
@@ -21,7 +21,13 @@ class ChatRoomsList extends React.Component {
 
    return (
      <div className="list-group user-list">
-       {chatRooms.map(chatRoom => <ChatRoomsListLine key={chatRoom.id} id={chatRoom.id} name={chatRoom.user.name} active={chatRoom.active} {...boundActionCreators} />)}
+       {chatRooms.map(chatRoom =>
+         <ChatRoomsListLine
+           key={chatRoom.id}
+           id={chatRoom.id}
+           name={chatRoom.user.name}
+           active={chatRoom.active}
+           {...boundActionCreators} />)}
      </div>
    )
  }

@@ -1,0 +1,1 @@
+export const CHAT_ROOM_ENTER = 'CHAT_ROOM_ENTER';

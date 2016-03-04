@@ -8,22 +8,15 @@ import { submitMessage } from '../store/actions/action_creators';
 class ChatRoom extends React.Component {
  render() {
    let curChatRoom = this.props.current;
-   console.log('ChatRoom render call');
-   console.log('Current chat room:');
-   console.log(curChatRoom);
 
    let messages = curChatRoom !== null ? curChatRoom.messages : [];
 
    let curChatRoomId = curChatRoom !== null ? curChatRoom.id : null;
 
-   console.log(messages);
-
    // Injected by react-redux:
    let { dispatch } = this.props
    // bind each action with dispatch
-   console.log(submitMessage);
    let boundActionCreators = bindActionCreators({submitMessage}, dispatch);
-   console.log(boundActionCreators);
 
    return (
      <div className="col-md-9 col-lg-10 chat-room">

@@ -20,7 +20,6 @@ class UserListLine extends React.Component {
   }
 
   render() {
-    console.log(this.props);
 
     return (
       <a href="#" onClick={this.handleClick} className={"list-group-item user-list-item " + (this.props.active ? 'active' : '')}>

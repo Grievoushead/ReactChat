@@ -2,13 +2,9 @@ import React from 'react';
 
 class ChatHistoryLine extends React.Component {
  render() {
-   console.log('ChatHistoryLine call');
-
+   
    let message = this.props.message.text;
    let inсoming = this.props.message.inсoming;
-
-   console.log('message received:');
-   console.log(message);
 
    return (
      <div className={"alert chat-line alert-" + (inсoming ? 'warning' : 'info')} role="alert">

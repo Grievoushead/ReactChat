@@ -16,13 +16,12 @@ class MessageInput extends React.Component {
     event.preventDefault();
     // this will trigger event
     // and redux will trigger parent component to redraw b/c of state change
-    console.log('handleSubmit call');
+
     let msg = this.state.message;
 
     this.setState({message: ''});
 
     this.props.submitMessage(this.props.currentChatRoomId, msg);
-    console.log('submitMessage call done');
   }
 
   handleChange(event) {

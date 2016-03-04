@@ -44,7 +44,7 @@ let initialState = {
 
 const AppStore = createStore(ChatRooms, initialState);
 
-console.log('Current store state');
+console.log('Initial store state');
 console.log(AppStore.getState());
 
 export default AppStore;

@@ -4,11 +4,7 @@ import ChatHistoryLine from './chat_history_line.jsx';
 class ChatHistory extends React.Component {
  render() {
 
-   console.log('ChatHistory render call');
    let messages = this.props.messages;
-
-   console.log('messages received:');
-   console.log(messages);
 
    return (
      <div className="chat-history">

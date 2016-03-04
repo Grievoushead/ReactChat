@@ -11,20 +11,13 @@ class UserList extends React.Component {
   }
 
  render() {
-   console.log('UserList render call');
-   console.log('UserList props:');
-   console.log(this.props);
 
     // Injected by react-redux:
    let { dispatch } = this.props
    // bind each action with dispatch
-   console.log(enterChatRoom);
    let boundActionCreators = bindActionCreators({enterChatRoom}, dispatch);
-   console.log(boundActionCreators);
 
    let chatRooms = this.props.chatRooms;
-   console.log('chatRooms received:');
-   console.log(chatRooms);
 
    return (
      <div className="list-group user-list">

@@ -4,7 +4,7 @@ class Chat extends React.Component {
  render() {
    return (
      <h4 className="chat">
-       Chat 5 component
+       Chat 7 component
      </h4>
    )
  }

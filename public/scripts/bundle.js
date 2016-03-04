@@ -19702,7 +19702,7 @@
 	      return _react2.default.createElement(
 	        "h4",
 	        { className: "chat" },
-	        "Chat 5 component"
+	        "Chat 7 component"
 	      );
 	    }
 	  }]);

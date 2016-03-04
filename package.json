@@ -1,12 +1,14 @@
 {
   "name": "ReactChat",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Bootstrap 4, ReactJS, Babel, Webpack",
+  "main": "server.js",
   "scripts": {
+    "start": "webpack && node server.js",
+    "dev": " node server.js & webpack --progress --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Grievoushead",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",

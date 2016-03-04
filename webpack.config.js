@@ -5,8 +5,9 @@ module.exports = {
   entry: './app/init.jsx',
   output: {
     path: __dirname,
-    publicPath: path.resolve(__dirname, '/public'),
-    filename: 'public/scripts/bundle.js'
+    filename: 'public/scripts/bundle.js',
+    // for webpack-dev-server
+    //publicPath: path.resolve(__dirname, '/public')
   },
   module: {
     loaders: [

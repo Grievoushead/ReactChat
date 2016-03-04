@@ -8,17 +8,17 @@ class UserList extends React.Component {
 
   constructor(props, test) {
     super(props);
-    debugger
   }
 
  render() {
-   console.log('UserList render:');
+   console.log('UserList render call');
    console.log('UserList props:');
    console.log(this.props);
+
     // Injected by react-redux:
    let { dispatch } = this.props
    // bind each action with dispatch
-   let boundActionCreators = bindActionCreators(ActionCreators, dispatch)
+   let boundActionCreators = bindActionCreators(ActionCreators, dispatch);
    console.log(boundActionCreators);
 
    let chatRooms = this.props.chatRooms;
@@ -33,16 +33,20 @@ class UserList extends React.Component {
  }
 }
 
-
-// UserList.propTypes  = {
-//   chatRooms: React.PropTypes.arrayOf(
-//     React.PropTypes.shape({
-//       id: React.PropTypes.number.isRequired,
-//       user: React.PropTypes.bool.isRequired,
-//       text: React.PropTypes.string.isRequired
-//     }).isRequired)
-//   )
-// }
+// provides type security level
+// react will throw error if types are not matching
+UserList.propTypes  = {
+  chatRooms: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      user: React.PropTypes.shape({
+          name: React.PropTypes.string.isRequired
+      }).isRequired,
+      messages: React.PropTypes.arrayOf(React.PropTypes.string),
+      active: React.PropTypes.bool.isRequired
+    }).isRequired
+  )
+}
 
 const mapStateToProps = (state) => {
   return {

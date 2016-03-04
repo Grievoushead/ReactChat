@@ -19747,6 +19747,10 @@
 	  return Chat;
 	}(_react2.default.Component);
 
+	// provides type security level
+	// react will throw error if types are not matching
+
+
 	Chat.contextTypes = {
 	  store: _react2.default.PropTypes.object
 	};
@@ -19867,18 +19871,16 @@
 	  function UserList(props, test) {
 	    _classCallCheck(this, UserList);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserList).call(this, props));
-
-	    debugger;
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(UserList).call(this, props));
 	  }
 
 	  _createClass(UserList, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log('UserList render:');
+	      console.log('UserList render call');
 	      console.log('UserList props:');
 	      console.log(this.props);
+
 	      // Injected by react-redux:
 	      var dispatch = this.props.dispatch;
 	      // bind each action with dispatch
@@ -19903,15 +19905,20 @@
 	  return UserList;
 	}(_react2.default.Component);
 
-	// UserList.propTypes  = {
-	//   chatRooms: React.PropTypes.arrayOf(
-	//     React.PropTypes.shape({
-	//       id: React.PropTypes.number.isRequired,
-	//       user: React.PropTypes.bool.isRequired,
-	//       text: React.PropTypes.string.isRequired
-	//     }).isRequired)
-	//   )
-	// }
+	// provides type security level
+	// react will throw error if types are not matching
+
+
+	UserList.propTypes = {
+	  chatRooms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	    id: _react2.default.PropTypes.number.isRequired,
+	    user: _react2.default.PropTypes.shape({
+	      name: _react2.default.PropTypes.string.isRequired
+	    }).isRequired,
+	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string),
+	    active: _react2.default.PropTypes.bool.isRequired
+	  }).isRequired)
+	};
 
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
@@ -19961,11 +19968,14 @@
 	  function UserListLine(props) {
 	    _classCallCheck(this, UserListLine);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserListLine).call(this, props));
+	    // state not needed b/c it is in redux single state tree
+	    // this.state = {
+	    //   active: props.active
+	    // };
 
-	    _this.state = {
-	      active: props.active
-	    };
+	    // need for passing this inside methods
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserListLine).call(this, props));
 
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    return _this;
@@ -19974,9 +19984,8 @@
 	  _createClass(UserListLine, [{
 	    key: "handleClick",
 	    value: function handleClick() {
-	      // this.setState({
-	      //   active: !this.state.active
-	      // });
+	      // this will trigger event
+	      // and redux will trigger parent component to redraw b/c of state change
 	      this.props.enterChatRoom(this.props.id);
 	    }
 	  }, {
@@ -19991,7 +20000,7 @@
 	          "h4",
 	          { className: "list-group-item-heading" },
 	          _react2.default.createElement("i", { className: "fa fa-circle text-success" }),
-	          "Jane Smith",
+	          this.props.name,
 	          _react2.default.createElement(
 	            "span",
 	            { className: "label label-danger label-pill pull-xs-right" },
@@ -20004,6 +20013,10 @@
 
 	  return UserListLine;
 	}(_react2.default.Component);
+
+	// provides type security level
+	// react will throw error if types are not matching
+
 
 	UserListLine.propTypes = {
 	  enterChatRoom: _react2.default.PropTypes.func.isRequired,
@@ -21809,21 +21822,37 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+	// reducer is a pure function
+	// do not modify state
+	// return new state with refs to objects which didn't affected
 	var ChatRooms = function ChatRooms() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case ACTION_TYPES.CHAT_ROOM_ENTER:
-	      debugger;
 	      var chatRoomId = action.id; // 2
 
-	      var chatRoom = state.chatRooms[chatRoomId];
-	      // return state with only 1 item new
-	      return {
-	        user: state.user,
-	        chatRooms: [state.chatRooms[0], state.chatRooms[1], Object.assign({}, chatRoom, { active: true })]
-	      };
+	      var chatRooms = [];
+	      state.chatRooms.forEach(function (chatRoom, i) {
+	        var cr;
+	        if (chatRoom.id === chatRoomId) {
+	          // make new chatroom active
+	          cr = {};
+	          Object.assign(cr, chatRoom, { active: true });
+	        } else if (chatRoom.active) {
+	          // make prev active chatroom inactive
+	          cr = {};
+	          Object.assign(cr, chatRoom, { active: false });
+	        } else {
+	          // chatRoom not affected, keep same ref
+	          cr = chatRoom;
+	        }
+
+	        chatRooms[i] = cr;
+	      });
+
+	      return { user: state.user, chatRooms: chatRooms };
 	      break;
 	    default:
 	      return state;

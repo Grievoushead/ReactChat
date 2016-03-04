@@ -4,17 +4,18 @@ class UserListLine extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      active: props.active
-    };
+    // state not needed b/c it is in redux single state tree
+    // this.state = {
+    //   active: props.active
+    // };
 
+    // need for passing this inside methods
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    // this.setState({
-    //   active: !this.state.active
-    // });
+    // this will trigger event
+    // and redux will trigger parent component to redraw b/c of state change
     this.props.enterChatRoom(this.props.id);
   }
 
@@ -25,7 +26,7 @@ class UserListLine extends React.Component {
       <a href="#" onClick={this.handleClick} className={"list-group-item user-list-item " + (this.props.active ? 'active' : '')}>
        <h4 className="list-group-item-heading">
          <i className="fa fa-circle text-success"></i>
-         Jane Smith
+         {this.props.name}
          <span className="label label-danger label-pill pull-xs-right">14</span>
        </h4>
       </a>
@@ -33,6 +34,8 @@ class UserListLine extends React.Component {
   }
 }
 
+// provides type security level
+// react will throw error if types are not matching
 UserListLine.propTypes = {
   enterChatRoom: React.PropTypes.func.isRequired,
   name: React.PropTypes.string.isRequired,

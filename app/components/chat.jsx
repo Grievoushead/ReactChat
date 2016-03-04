@@ -24,6 +24,8 @@ class Chat extends React.Component {
  }
 }
 
+// provides type security level
+// react will throw error if types are not matching
 Chat.contextTypes = {
   store: React.PropTypes.object
 };

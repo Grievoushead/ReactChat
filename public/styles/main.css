@@ -1,0 +1,45 @@
+body {
+  padding-top:50px;
+}
+
+.user-panel {
+  display:block;
+  clear:both;
+  overflow: hidden;
+  height: 100px;
+  padding-left: 15px;
+}
+
+.user-panel .image img {
+  width: 65px;
+  height: 65px;
+}
+
+.user-panel .info {
+  padding-left: 25px;
+}
+
+.user-list {
+  padding-top: 25px;
+}
+
+.user-list-item img {
+  width: 40px;
+  height: 40px;
+}
+
+.chat-line {
+  display:block;
+  clear:both;
+  overflow: hidden;
+}
+
+.chat-line img {
+  width: 55px;
+  height:55px;
+}
+
+.chat-line .message {
+  padding-left: 15px;
+    padding-top: 15px;
+}

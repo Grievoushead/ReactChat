@@ -1,0 +1,14 @@
+*.bak
+*.log
+*.dat
+
+.DS_Store
+Thumbs.db
+
+.grunt
+.module-cache
+node_modules
+bower_components
+
+heroku
+heroku.pub

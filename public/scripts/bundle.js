@@ -19694,9 +19694,9 @@
 
 	var _user_panel2 = _interopRequireDefault(_user_panel);
 
-	var _user_list = __webpack_require__(161);
+	var _chat_rooms_list = __webpack_require__(193);
 
-	var _user_list2 = _interopRequireDefault(_user_list);
+	var _chat_rooms_list2 = _interopRequireDefault(_chat_rooms_list);
 
 	var _chat_room = __webpack_require__(186);
 
@@ -19736,7 +19736,7 @@
 	            'div',
 	            { className: 'col-md-3 col-lg-2 sidebar-offcanvas', id: 'sidebar', role: 'navigation' },
 	            _react2.default.createElement(_user_panel2.default, null),
-	            _react2.default.createElement(_user_list2.default, { chatRooms: state.chatRooms })
+	            _react2.default.createElement(_chat_rooms_list2.default, { chatRooms: state.chatRooms })
 	          ),
 	          _react2.default.createElement(_chat_room2.default, { current: state.currentChatRoom })
 	        )
@@ -19826,200 +19826,8 @@
 	exports.default = UserPanel;
 
 /***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _user_list_line = __webpack_require__(162);
-
-	var _user_list_line2 = _interopRequireDefault(_user_list_line);
-
-	var _redux = __webpack_require__(163);
-
-	var _reactRedux = __webpack_require__(173);
-
-	var _action_creators = __webpack_require__(184);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var UserList = function (_React$Component) {
-	  _inherits(UserList, _React$Component);
-
-	  function UserList(props, test) {
-	    _classCallCheck(this, UserList);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(UserList).call(this, props));
-	  }
-
-	  _createClass(UserList, [{
-	    key: 'render',
-	    value: function render() {
-
-	      // Injected by react-redux:
-	      var dispatch = this.props.dispatch;
-	      // bind each action with dispatch
-
-	      var boundActionCreators = (0, _redux.bindActionCreators)({ enterChatRoom: _action_creators.enterChatRoom }, dispatch);
-
-	      var chatRooms = this.props.chatRooms;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'list-group user-list' },
-	        chatRooms.map(function (chatRoom) {
-	          return _react2.default.createElement(_user_list_line2.default, _extends({ key: chatRoom.id, id: chatRoom.id, name: chatRoom.user.name, active: chatRoom.active }, boundActionCreators));
-	        })
-	      );
-	    }
-	  }]);
-
-	  return UserList;
-	}(_react2.default.Component);
-
-	// provides type security level
-	// react will throw error if types are not matching
-
-
-	UserList.propTypes = {
-	  chatRooms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
-	    id: _react2.default.PropTypes.number.isRequired,
-	    user: _react2.default.PropTypes.shape({
-	      name: _react2.default.PropTypes.string.isRequired
-	    }).isRequired,
-	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
-	      inсoming: _react2.default.PropTypes.bool.isRequired,
-	      text: _react2.default.PropTypes.string.isRequired
-	    })),
-	    active: _react2.default.PropTypes.bool.isRequired
-	  }).isRequired)
-	};
-
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    chatRooms: state.chatRooms
-	  };
-	};
-
-	// const mapDispatchToProps = (dispatch) => {
-	//   return {
-	//     onTodoClick: (id) => {
-	//       dispatch(toggleTodo(id))
-	//     }
-	//   }
-	// }
-
-	// wrapper that connect redux state to component props
-	// and dispatch/subscribe actions
-	exports.default = (0, _reactRedux.connect)(mapStateToProps /*, mapDispatchToProps*/)(UserList);
-
-/***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var UserListLine = function (_React$Component) {
-	  _inherits(UserListLine, _React$Component);
-
-	  function UserListLine(props) {
-	    _classCallCheck(this, UserListLine);
-
-	    // state not needed b/c it is in redux single state tree
-	    // this.state = {
-	    //   active: props.active
-	    // };
-
-	    // need for passing this inside methods
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserListLine).call(this, props));
-
-	    _this.handleClick = _this.handleClick.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(UserListLine, [{
-	    key: "handleClick",
-	    value: function handleClick() {
-	      // this will trigger event
-	      // and redux will trigger parent component to redraw b/c of state change
-	      this.props.enterChatRoom(this.props.id);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-
-	      return _react2.default.createElement(
-	        "a",
-	        { href: "#", onClick: this.handleClick, className: "list-group-item user-list-item " + (this.props.active ? 'active' : '') },
-	        _react2.default.createElement(
-	          "h4",
-	          { className: "list-group-item-heading" },
-	          _react2.default.createElement("i", { className: "fa fa-circle text-success" }),
-	          this.props.name,
-	          _react2.default.createElement(
-	            "span",
-	            { className: "label label-danger label-pill pull-xs-right" },
-	            "14"
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return UserListLine;
-	}(_react2.default.Component);
-
-	// provides type security level
-	// react will throw error if types are not matching
-
-
-	UserListLine.propTypes = {
-	  enterChatRoom: _react2.default.PropTypes.func.isRequired,
-	  name: _react2.default.PropTypes.string.isRequired,
-	  id: _react2.default.PropTypes.number.isRequired,
-	  active: _react2.default.PropTypes.bool.isRequired
-	};
-
-	exports.default = UserListLine;
-
-/***/ },
+/* 161 */,
+/* 162 */,
 /* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22014,6 +21822,201 @@
 	};
 
 	exports.default = ChatRooms;
+
+/***/ },
+/* 192 */,
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _chat_rooms_list_line = __webpack_require__(194);
+
+	var _chat_rooms_list_line2 = _interopRequireDefault(_chat_rooms_list_line);
+
+	var _redux = __webpack_require__(163);
+
+	var _reactRedux = __webpack_require__(173);
+
+	var _action_creators = __webpack_require__(184);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ChatRoomsList = function (_React$Component) {
+	  _inherits(ChatRoomsList, _React$Component);
+
+	  function ChatRoomsList(props, test) {
+	    _classCallCheck(this, ChatRoomsList);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatRoomsList).call(this, props));
+	  }
+
+	  _createClass(ChatRoomsList, [{
+	    key: 'render',
+	    value: function render() {
+
+	      // Injected by react-redux:
+	      var dispatch = this.props.dispatch;
+	      // bind each action with dispatch
+
+	      var boundActionCreators = (0, _redux.bindActionCreators)({ enterChatRoom: _action_creators.enterChatRoom }, dispatch);
+
+	      var chatRooms = this.props.chatRooms;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'list-group user-list' },
+	        chatRooms.map(function (chatRoom) {
+	          return _react2.default.createElement(_chat_rooms_list_line2.default, _extends({ key: chatRoom.id, id: chatRoom.id, name: chatRoom.user.name, active: chatRoom.active }, boundActionCreators));
+	        })
+	      );
+	    }
+	  }]);
+
+	  return ChatRoomsList;
+	}(_react2.default.Component);
+
+	// provides type security level
+	// react will throw error if types are not matching
+
+
+	ChatRoomsList.propTypes = {
+	  chatRooms: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	    id: _react2.default.PropTypes.number.isRequired,
+	    user: _react2.default.PropTypes.shape({
+	      name: _react2.default.PropTypes.string.isRequired
+	    }).isRequired,
+	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	      inсoming: _react2.default.PropTypes.bool.isRequired,
+	      text: _react2.default.PropTypes.string.isRequired
+	    })),
+	    active: _react2.default.PropTypes.bool.isRequired
+	  }).isRequired)
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    chatRooms: state.chatRooms
+	  };
+	};
+
+	// const mapDispatchToProps = (dispatch) => {
+	//   return {
+	//     onTodoClick: (id) => {
+	//       dispatch(toggleTodo(id))
+	//     }
+	//   }
+	// }
+
+	// wrapper that connect redux state to component props
+	// and dispatch/subscribe actions
+	exports.default = (0, _reactRedux.connect)(mapStateToProps /*, mapDispatchToProps*/)(ChatRoomsList);
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ChatRoomsListLine = function (_React$Component) {
+	  _inherits(ChatRoomsListLine, _React$Component);
+
+	  function ChatRoomsListLine(props) {
+	    _classCallCheck(this, ChatRoomsListLine);
+
+	    // state not needed b/c it is in redux single state tree
+	    // this.state = {
+	    //   active: props.active
+	    // };
+
+	    // need for passing this inside methods
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ChatRoomsListLine).call(this, props));
+
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(ChatRoomsListLine, [{
+	    key: "handleClick",
+	    value: function handleClick() {
+	      // this will trigger event
+	      // and redux will trigger parent component to redraw b/c of state change
+	      this.props.enterChatRoom(this.props.id);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        "a",
+	        { href: "#", onClick: this.handleClick, className: "list-group-item user-list-item " + (this.props.active ? 'active' : '') },
+	        _react2.default.createElement(
+	          "h4",
+	          { className: "list-group-item-heading" },
+	          _react2.default.createElement("i", { className: "fa fa-circle text-success" }),
+	          this.props.name,
+	          _react2.default.createElement(
+	            "span",
+	            { className: "label label-danger label-pill pull-xs-right" },
+	            "14"
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ChatRoomsListLine;
+	}(_react2.default.Component);
+
+	// provides type security level
+	// react will throw error if types are not matching
+
+
+	ChatRoomsListLine.propTypes = {
+	  enterChatRoom: _react2.default.PropTypes.func.isRequired,
+	  name: _react2.default.PropTypes.string.isRequired,
+	  id: _react2.default.PropTypes.number.isRequired,
+	  active: _react2.default.PropTypes.bool.isRequired
+	};
+
+	exports.default = ChatRoomsListLine;
 
 /***/ }
 /******/ ]);

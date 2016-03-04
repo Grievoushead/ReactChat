@@ -1,10 +1,10 @@
 import React from 'react';
-import UserListLine from './user_list_line.jsx';
+import ChatRoomsListLine from './chat_rooms_list_line.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { enterChatRoom } from '../store/actions/action_creators';
 
-class UserList extends React.Component {
+class ChatRoomsList extends React.Component {
 
   constructor(props, test) {
     super(props);
@@ -21,7 +21,7 @@ class UserList extends React.Component {
 
    return (
      <div className="list-group user-list">
-       {chatRooms.map(chatRoom => <UserListLine key={chatRoom.id} id={chatRoom.id} name={chatRoom.user.name} active={chatRoom.active} {...boundActionCreators} />)}
+       {chatRooms.map(chatRoom => <ChatRoomsListLine key={chatRoom.id} id={chatRoom.id} name={chatRoom.user.name} active={chatRoom.active} {...boundActionCreators} />)}
      </div>
    )
  }
@@ -29,7 +29,7 @@ class UserList extends React.Component {
 
 // provides type security level
 // react will throw error if types are not matching
-UserList.propTypes  = {
+ChatRoomsList.propTypes  = {
   chatRooms: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => {
 
 // wrapper that connect redux state to component props
 // and dispatch/subscribe actions
-export default connect(mapStateToProps/*, mapDispatchToProps*/)(UserList);
+export default connect(mapStateToProps/*, mapDispatchToProps*/)(ChatRoomsList);

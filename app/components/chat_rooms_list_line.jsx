@@ -1,6 +1,6 @@
 import React from 'react';
 
-class UserListLine extends React.Component {
+class ChatRoomsListLine extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,11 +35,11 @@ class UserListLine extends React.Component {
 
 // provides type security level
 // react will throw error if types are not matching
-UserListLine.propTypes = {
+ChatRoomsListLine.propTypes = {
   enterChatRoom: React.PropTypes.func.isRequired,
   name: React.PropTypes.string.isRequired,
   id: React.PropTypes.number.isRequired,
   active: React.PropTypes.bool.isRequired
 }
 
-export default UserListLine;
+export default ChatRoomsListLine;

@@ -19915,7 +19915,10 @@
 	    user: _react2.default.PropTypes.shape({
 	      name: _react2.default.PropTypes.string.isRequired
 	    }).isRequired,
-	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string),
+	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	      inсoming: _react2.default.PropTypes.bool.isRequired,
+	      text: _react2.default.PropTypes.string.isRequired
+	    })),
 	    active: _react2.default.PropTypes.bool.isRequired
 	  }).isRequired)
 	};
@@ -20857,7 +20860,10 @@
 	    user: _react2.default.PropTypes.shape({
 	      name: _react2.default.PropTypes.string.isRequired
 	    }).isRequired,
-	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string),
+	    messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	      inсoming: _react2.default.PropTypes.bool.isRequired,
+	      text: _react2.default.PropTypes.string.isRequired
+	    })),
 	    active: _react2.default.PropTypes.bool.isRequired
 	  })
 	};
@@ -20879,7 +20885,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -20901,35 +20907,35 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ChatHistory = function (_React$Component) {
-	   _inherits(ChatHistory, _React$Component);
+	  _inherits(ChatHistory, _React$Component);
 
-	   function ChatHistory() {
-	      _classCallCheck(this, ChatHistory);
+	  function ChatHistory() {
+	    _classCallCheck(this, ChatHistory);
 
-	      return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatHistory).apply(this, arguments));
-	   }
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatHistory).apply(this, arguments));
+	  }
 
-	   _createClass(ChatHistory, [{
-	      key: 'render',
-	      value: function render() {
+	  _createClass(ChatHistory, [{
+	    key: 'render',
+	    value: function render() {
 
-	         console.log('ChatHistory render call');
-	         var messages = this.props.messages;
+	      console.log('ChatHistory render call');
+	      var messages = this.props.messages;
 
-	         console.log('messages received:');
-	         console.log(messages);
+	      console.log('messages received:');
+	      console.log(messages);
 
-	         return _react2.default.createElement(
-	            'div',
-	            { className: 'chat-history' },
-	            messages.map(function (msg, i) {
-	               return _react2.default.createElement(_chat_history_line2.default, { key: i, message: msg });
-	            })
-	         );
-	      }
-	   }]);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'chat-history' },
+	        messages.map(function (msg, i) {
+	          return _react2.default.createElement(_chat_history_line2.default, { key: i, message: msg });
+	        })
+	      );
+	    }
+	  }]);
 
-	   return ChatHistory;
+	  return ChatHistory;
 	}(_react2.default.Component);
 
 	// provides type security level
@@ -20937,7 +20943,10 @@
 
 
 	ChatHistory.propTypes = {
-	   messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string).isRequired
+	  messages: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	    inсoming: _react2.default.PropTypes.bool.isRequired,
+	    text: _react2.default.PropTypes.string.isRequired
+	  })).isRequired
 	};
 
 	exports.default = ChatHistory;
@@ -20980,14 +20989,15 @@
 	    value: function render() {
 	      console.log('ChatHistoryLine call');
 
-	      var message = this.props.message;
+	      var message = this.props.message.text;
+	      var inсoming = this.props.message.inсoming;
 
 	      console.log('message received:');
 	      console.log(message);
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'alert alert-info chat-line', role: 'alert' },
+	        { className: "alert chat-line alert-" + (inсoming ? 'warning' : 'info'), role: 'alert' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'pull-left image' },
@@ -20999,7 +21009,8 @@
 	          _react2.default.createElement(
 	            'strong',
 	            null,
-	            'Jane Smith says: '
+	            inсoming ? 'Jane Smith' : 'You',
+	            ' says: '
 	          ),
 	          ' ',
 	          message
@@ -21016,7 +21027,10 @@
 
 
 	ChatHistoryLine.propTypes = {
-	  message: _react2.default.PropTypes.string.isRequired
+	  message: _react2.default.PropTypes.shape({
+	    inсoming: _react2.default.PropTypes.bool.isRequired,
+	    text: _react2.default.PropTypes.string.isRequired
+	  }).isRequired
 	};
 
 	exports.default = ChatHistoryLine;
@@ -21845,21 +21859,33 @@
 	    user: {
 	      name: 'Jane Smith'
 	    },
-	    messages: ['Hello Serg, How are you?', 'How was your day?'],
+	    messages: [{
+	      inсoming: true,
+	      text: 'Hello Serg, How are you?'
+	    }, {
+	      inсoming: true,
+	      text: 'How was your day?'
+	    }],
 	    active: false
 	  }, {
 	    id: 1,
 	    user: {
 	      name: 'Tom Hanks'
 	    },
-	    messages: ['Hi Tom, thanks for the book, it was very interesting.'],
+	    messages: [{
+	      inсoming: true,
+	      text: 'Hi Tom, thanks for the book, it was very interesting.'
+	    }],
 	    active: false
 	  }, {
 	    id: 2,
 	    user: {
 	      name: 'Will Smith'
 	    },
-	    messages: ['Hi Will, you last movie, was incredible.'],
+	    messages: [{
+	      inсoming: false,
+	      text: 'Hi Will, you last movie, was incredible.'
+	    }],
 	    active: false
 	  }],
 	  currentChatRoom: null

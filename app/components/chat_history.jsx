@@ -23,7 +23,12 @@ class ChatHistory extends React.Component {
 // provides type security level
 // react will throw error if types are not matching
 ChatHistory.propTypes  = {
-  messages: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  messages: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      inсoming: React.PropTypes.bool.isRequired,
+      text: React.PropTypes.string.isRequired
+    })
+  ).isRequired
 }
 
 export default ChatHistory;

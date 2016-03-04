@@ -42,7 +42,11 @@ UserList.propTypes  = {
       user: React.PropTypes.shape({
           name: React.PropTypes.string.isRequired
       }).isRequired,
-      messages: React.PropTypes.arrayOf(React.PropTypes.string),
+      messages: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          inсoming: React.PropTypes.bool.isRequired,
+          text: React.PropTypes.string.isRequired
+        })),
       active: React.PropTypes.bool.isRequired
     }).isRequired
   )

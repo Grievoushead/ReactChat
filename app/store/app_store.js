@@ -10,21 +10,33 @@ let initialState = {
     user: {
       name: 'Jane Smith'
     },
-    messages: ['Hello Serg, How are you?', 'How was your day?'],
+    messages: [{
+        inсoming: true,
+        text: 'Hello Serg, How are you?'
+      }, {
+          inсoming: true,
+          text: 'How was your day?'
+      }],
     active: false
   }, {
     id: 1,
     user: {
       name: 'Tom Hanks'
     },
-    messages: ['Hi Tom, thanks for the book, it was very interesting.'],
+    messages:[{
+        inсoming: true,
+        text: 'Hi Tom, thanks for the book, it was very interesting.'
+      }],
     active: false
   }, {
     id: 2,
     user: {
       name: 'Will Smith'
     },
-    messages: ['Hi Will, you last movie, was incredible.'],
+    messages: [{
+        inсoming: false,
+        text: 'Hi Will, you last movie, was incredible.'
+      }],
     active: false
   }],
   currentChatRoom: null

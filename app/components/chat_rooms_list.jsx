@@ -27,6 +27,7 @@ class ChatRoomsList extends React.Component {
            id={chatRoom.id}
            name={chatRoom.user.name}
            active={chatRoom.active}
+           messagesCount={chatRoom.messages.length}
            {...boundActionCreators} />)}
      </div>
    )

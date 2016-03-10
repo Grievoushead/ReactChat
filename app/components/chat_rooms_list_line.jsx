@@ -26,7 +26,7 @@ class ChatRoomsListLine extends React.Component {
        <h4 className="list-group-item-heading">
          <i className="fa fa-circle text-success"></i>
          {this.props.name}
-         <span className="label label-danger label-pill pull-xs-right">14</span>
+         <span className="label label-danger label-pill pull-xs-right">{this.props.messagesCount}</span>
        </h4>
       </a>
     )
@@ -39,7 +39,8 @@ ChatRoomsListLine.propTypes = {
   enterChatRoom: React.PropTypes.func.isRequired,
   name: React.PropTypes.string.isRequired,
   id: React.PropTypes.number.isRequired,
-  active: React.PropTypes.bool.isRequired
+  active: React.PropTypes.bool.isRequired,
+  messagesCount: React.PropTypes.number.isRequired
 }
 
 export default ChatRoomsListLine;

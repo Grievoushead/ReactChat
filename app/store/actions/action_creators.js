@@ -14,3 +14,10 @@ export function submitMessage(chatRoomId, message) {
     message
   }
 }
+
+export function filterChange(filterQuery) {
+  return {
+    type: ACTION_TYPES.CHAT_ROOM_FILTER_CHANGE,
+    filterQuery
+  }
+}

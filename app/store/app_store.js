@@ -39,7 +39,8 @@ let initialState = {
       }],
     active: false
   }],
-  currentChatRoom: null
+  currentChatRoom: null,
+  chatRoomFilterQuery: ''
 };
 
 const AppStore = createStore(ChatRooms, initialState);

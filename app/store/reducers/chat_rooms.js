@@ -5,6 +5,7 @@ import * as ACTION_TYPES from '../actions/action_types';
 // return new state with refs to objects which didn't affected
 const ChatRooms = (state = [], action) => {
   switch (action.type) {
+
     case ACTION_TYPES.CHAT_ROOM_ENTER:
       let chatRoomId = action.id;
 
@@ -53,6 +54,14 @@ const ChatRooms = (state = [], action) => {
       });
 
       return {user: state.user, chatRooms, currentChatRoom};
+
+      case ACTION_TYPES.CHAT_ROOM_FILTER_CHANGE:
+        let filter = action.filterQuery;
+        var state = {user: state.user, chatRooms: state.chatRooms, currentChatRoom: state.currentChatRoom, chatRoomFilterQuery: filter};
+
+        console.debug(state);
+        return state;
+
     default:
       return state;
   }

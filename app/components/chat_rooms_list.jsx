@@ -54,13 +54,16 @@ ChatRoomsList.propTypes  = {
 }
 
 const mapStateToProps = (state) => {
-  if (state.chatRoomFilterQuery.length) {
+  let queryStr = state.get('chatRoomFilterQuery');
+  if (queryStr.length) {
     return {
-      chatRooms: state.chatRooms.filter(room=>~room.user.name.indexOf(state.chatRoomFilterQuery))
+      chatRooms: state.get('chatRooms')
+                      .toJS()
+                      .filter(room => ~room.user.name.indexOf(queryStr))
     }
   } else {
     return {
-      chatRooms: state.chatRooms
+      chatRooms: state.get('chatRooms').toJS()
     }
   }
 }

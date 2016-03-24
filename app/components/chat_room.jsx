@@ -45,8 +45,9 @@ ChatRoom.propTypes  = {
 }
 
 const mapStateToProps = (state) => {
+  let curChatRoom = state.get('currentChatRoom');
   return {
-    current: state.currentChatRoom
+    current: curChatRoom !== null ? curChatRoom.toJS() : null
   }
 }
 

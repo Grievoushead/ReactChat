@@ -1,7 +1,8 @@
 import * as ACTION_TYPES from '../actions/action_types';
+import { fromJS } from 'immutable';
 
 // Shape of App State obj
-const initialState = {
+const initialState = fromJS({
   user: {
     name: 'Serg'
   },
@@ -41,7 +42,7 @@ const initialState = {
       }],
     active: false
   }]
-};
+});
 
 // Reducer is a pure function
 // DO NOT: Mutate its arguments;
@@ -54,43 +55,35 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case ACTION_TYPES.CHAT_ROOM_ENTER:
-
-      return {
-        ...state,
-        chatRooms: state.chatRooms.map(room => {
-          if (room.id === action.id) {
-            currentChatRoom = room;
-            return Object.assign({}, room, {active: true});
-          } else if (room.active) {
-            return Object.assign({}, room, {active: false});
+      return state.update('chatRooms', rooms =>
+        rooms.map(room => {
+          if (room.get('id') === action.id) {
+            currentChatRoom = room.set('active', true);
+            return currentChatRoom;
+          } else if (room.get('active') === true) {
+            return room.set('active', false);
           } else {
             return room;
           }
-        }),
-        currentChatRoom
-      };
+        })
+      ).set('currentChatRoom', currentChatRoom);
 
     case ACTION_TYPES.CHAT_ROOM_MESSAGE_SUBMIT:
-
-      return {
-        ...state,
-        chatRooms: state.chatRooms.map(room => {
-          if (room.id === action.chatRoomId) {
-            currentChatRoom = Object.assign({}, room, {messages: [...room.messages, {inсoming:false, text: action.message}]});
+      // using ES6 object spread operator will return new obj with copy of old props
+      return state.update('chatRooms', rooms =>
+        rooms.map(room => {
+          if (room.get('id') === action.chatRoomId) {
+            currentChatRoom = room.update('messages', messages => messages.push(fromJS({inсoming:false, text: action.message})));
             return currentChatRoom;
           } else {
             return room;
           }
-        }),
-        currentChatRoom
-      };
+        })
+      ).set('currentChatRoom', currentChatRoom);
 
     case ACTION_TYPES.CHAT_ROOM_FILTER_CHANGE:
-
-      return {
-        ...state,
-        chatRoomFilterQuery: action.filterQuery
-      };
+      // using ImmutableJS Map will return new map with updated property
+      return state.set('chatRoomFilterQuery', action.filterQuery);
 
     default:
       return state;
